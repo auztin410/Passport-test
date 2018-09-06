@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import 'whatwg-fetch';
-import { getFromStorage, setInStorage} from "../utils/storage";
+import { getFromStorage, setInStorage } from "../utils/storage";
 
 class Home extends Component {
   constructor(props) {
@@ -31,7 +31,7 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    const obj = getFromStorage("the_main_app");
+    const obj = getFromStorage("weird_wide_web");
     
     if (obj && obj.token) {
       const { token } = obj;

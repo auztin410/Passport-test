@@ -14,8 +14,10 @@ import NotFound from './components/App/NotFound';
 import Home from './components/Home/Home';
 
 import HelloWorld from './components/HelloWorld/HelloWorld';
-
+import Submit from './components/Submit/Submit';
+import Profile from './components/Profile/Profile';
 import './styles/styles.scss';
+
 
 render((
   <Router>
@@ -23,6 +25,8 @@ render((
       <Switch>
         <Route exact path="/" component={Home}/>
         <Route path="/helloworld" component={HelloWorld}/>
+        <Route exact path="/submit" component={Submit} />
+        <Route exact path="/profile" component={Profile} />
         <Route component={NotFound}/>
       </Switch>
     </App>
