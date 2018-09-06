@@ -10,6 +10,7 @@ class Submit extends Component {
         this.state = {
             isLoading: true,
             token: '',
+            username: '',
             signUpError: '',
             signInError: '',
             signInEmail: '',
@@ -22,16 +23,19 @@ class Submit extends Component {
     }
 
     componentDidMount() {
-        const obj = getFromStorage("weird_wide_web");
+        const obj = getFromStorage("the_main_app");
 
         if (obj && obj.token) {
             const { token } = obj;
+            console.log("token");
+            console.log(obj);
             fetch("/api/account/verify?token=" + token)
                 .then(res => res.json())
                 .then(json => {
                     if (json.success) {
                         this.setState({
                             token,
+                            username: obj.username,
                             isLoading: false
                         });
                     } else {
@@ -51,6 +55,7 @@ class Submit extends Component {
         const {
             isLoading,
             token,
+            username,
             signInError,
             signInEmail,
             signInPassword,

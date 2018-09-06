@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import 'whatwg-fetch';
-import { getFromStorage, setInStorage } from "../utils/storage";
+import { getFromStorage, setInStorage} from "../utils/storage";
 
 class Home extends Component {
   constructor(props) {
@@ -9,6 +9,7 @@ class Home extends Component {
     this.state = {
       isLoading: true,
       token: '',
+      username: '',
       signUpError: '',
       signInError: '',
       signInEmail: '',
@@ -31,16 +32,19 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    const obj = getFromStorage("weird_wide_web");
+    const obj = getFromStorage("the_main_app");
     
     if (obj && obj.token) {
       const { token } = obj;
+      console.log("token");
+      console.log(obj);
       fetch("/api/account/verify?token=" + token)
       .then(res => res.json())
       .then(json => {
         if (json.success) {
           this.setState({
             token,
+            username: obj.username,
             isLoading: false
           });
         } else {
@@ -157,7 +161,7 @@ class Home extends Component {
     .then(res => res.json())
     .then(json => {
       if (json.success) {
-        setInStorage('the_main_app', { token: json.token });
+        setInStorage('the_main_app', { token: json.token, username: signInEmail });
         this.setState({
           signInError: json.message,
           isLoading: false,
@@ -292,7 +296,7 @@ class Home extends Component {
 
     return (
       <div>
-        <p>Account</p>
+        <p>User: {this.state.username}</p>
         <button onClick={this.logout}>Logout</button>
       </div>
     );
